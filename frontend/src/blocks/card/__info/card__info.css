@@ -1,0 +1,7 @@
+.card__info {
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    padding: 25px 15px 31px 21px;
+    justify-content: space-between;
+}

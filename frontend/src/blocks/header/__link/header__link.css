@@ -1,0 +1,16 @@
+.header__link {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin-right: 0;
+    width: fit-content;
+}
+
+@media screen and (max-width: 510px) {
+    .header__link {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

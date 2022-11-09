@@ -1,0 +1,25 @@
+.profile__info {
+    flex-wrap: wrap;
+    color: white;
+    align-self: center;
+    max-width: 336px;
+    display: grid;
+    grid-template-columns: minmax(fit-content, 294px) 0.5fr;
+    gap: 10px 18px;
+}
+
+@media screen and (max-width: 950px) {
+    .profile__info {
+        grid-template-columns: minmax(100px, 170px) 20px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .profile__info {
+        gap: 14px 10px;
+        width: 100%;
+        grid-template-columns: 1fr minmax(189px, 5fr) 1fr;
+        margin-bottom: 36px;
+    }
+}

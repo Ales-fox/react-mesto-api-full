@@ -1,0 +1,30 @@
+.profile__status {
+    margin: 0;
+    font-family: Inter, serif, Arial;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    grid-column: 1/-1;
+}
+
+@media screen and (max-width: 1050px) {
+    .profile__status {
+        font-size: 15px;
+        line-height: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .profile__status {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__status {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
+}

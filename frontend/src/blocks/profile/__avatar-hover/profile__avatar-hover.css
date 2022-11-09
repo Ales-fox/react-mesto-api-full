@@ -1,0 +1,33 @@
+.profile__avatar-hover {
+    width: fit-content;
+    height: fit-content;
+    margin-right: 30px;
+    position: relative;
+}
+
+.profile__avatar-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.profile__avatar-hover:hover::after {
+    background: url(../../../images/profile__avatar_edit.svg) center / 26px 26px,
+        linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1050px) {
+    .profile__avatar-hover {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .profile__avatar-hover {
+        margin: 0 auto 26px auto;
+    }
+}

@@ -1,0 +1,20 @@
+.formIn__title {
+    margin: auto;
+    margin-bottom: 50px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 450px) {
+    .formIn__title {
+
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 40px;
+    }
+}

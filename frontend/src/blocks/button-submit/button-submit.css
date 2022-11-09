@@ -1,0 +1,21 @@
+.button-submit {
+    border: none;
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: 50px;
+    font-family: Inter, serif, Arial;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+@media screen and (max-width: 450px) {
+    .button-submit {
+        height: 46px;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

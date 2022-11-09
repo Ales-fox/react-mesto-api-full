@@ -1,0 +1,11 @@
+.popup__container_updateAvatar {
+    height: 40%;
+    max-height: 272px;
+    padding-bottom: 36px;
+}
+
+@media screen and (max-width: 500px) {
+    .popup__container_updateAvatar {
+        height: 222px;
+    }
+}

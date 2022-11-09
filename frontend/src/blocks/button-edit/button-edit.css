@@ -1,0 +1,29 @@
+.button-edit {
+    width: 24px;
+    height: 24px;
+    background-image: url(../../images/editButton.svg);
+    background-color: black;
+    border: 1px solid white;
+    border: none;
+    grid-column: 2/3;
+    align-self: flex-end;
+    justify-self: start;
+}
+
+@media screen and (max-width: 700px) {
+    .button-edit {
+        width: 20px;
+        height: 20px;
+        background-size: cover;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .button-edit {
+        width: 18px;
+        height: 18px;
+        background-size: cover;
+        margin-left: 0;
+        grid-column: 3/-1;
+    }
+}

@@ -1,0 +1,28 @@
+.formIn {
+    width: 28%;
+    margin: auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .formIn {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .formIn {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .formIn {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .formIn {
+        width: 81%;
+    }
+}
