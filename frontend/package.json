@@ -43,6 +43,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ales-fox/react-mesto-auth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ales-fox/react-mesto-auth/issues"
+  },
   "homepage": "/",
   "devDependencies": {
     "nodemon": "^2.0.20"
