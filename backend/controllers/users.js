@@ -25,7 +25,7 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.getMyInfo = (req, res, next) => {
   User.findById(req.user._id).orFail(new NotFoundError(errorMessage.notFoundUser))
-    .then((myInfo) => res.send({ myInfo }))
+    .then((data) => res.send({ data }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));
@@ -46,7 +46,7 @@ module.exports.createUser = (req, res, next) => {
     }))
     .then((user) => {
       res.status(200).send({
-        name: user.name, about: user.about, avatar: user.avatar, email: user.email,
+        name: user.name, about: user.about, avatar: user.avatar, email: user.email, _id: user._id,
       });
     })
     .catch((err) => {
@@ -86,7 +86,7 @@ module.exports.correctAvatar = (req, res, next) => {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
   }).orFail(new NotFoundError(errorMessage.notFoundUser))
-    .then((users) => res.send({ users }))
+    .then((user) => res.send({ name: user.name, about: user.about, avatar: user.avatar }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));

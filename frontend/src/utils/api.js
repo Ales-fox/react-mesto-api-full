@@ -1,9 +1,9 @@
 class Api {
     constructor({ baseURL, headers }) {
         this._baseURL = baseURL;
-        this._urlDataProfile = `${this._baseURL}users/me/`;
-        this._urlCard = `${this._baseURL}cards/`;
-        this._urlAvatar = `${this._baseURL}users/me/avatar/`;
+        this._urlDataProfile = `${this._baseURL}users/me`;
+        this._urlCard = `${this._baseURL}cards`;
+        this._urlAvatar = `${this._baseURL}users/me/avatar`;
         this._headers = headers;
     }
 
@@ -52,7 +52,7 @@ class Api {
     //Так же возможен вариант когда при передаче метода одного класса в другой класс
     //Закреплять this методом bind()
     deleteCard = (id) => {
-        return fetch(`${this._urlCard}${id}`, {
+        return fetch(`${this._urlCard}/${id}`, {
             method: "DELETE",
             headers: this._headers,
         }).then(res => this._getResponseData(res));
@@ -64,14 +64,14 @@ class Api {
     }
 
     putLikes = (id) => {
-        return fetch(`${this._urlCard}${id}/likes`, {
+        return fetch(`${this._urlCard}/${id}/likes`, {
             method: "PUT",
             headers: this._headers
         }).then(res => this._getResponseData(res));
     }
 
     deleteLikes = (id) => {
-        return fetch(`${this._urlCard}${id}/likes`, {
+        return fetch(`${this._urlCard}/${id}/likes`, {
             method: "DELETE",
             headers: this._headers,
         }).then(res => this._getResponseData(res));
@@ -88,9 +88,9 @@ class Api {
 const apiData = {
     baseURL: 'http://localhost:3000/',
     headers: {
-        authorization: '13749ec2-245f-4fcd-8f22-451e84bec66b',
-        'Content-Type': 'application/json'
-    }
+        "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
+        "Content-Type": "application/json" ,
+    } 
 };
 
 /*baseURL:'https://domainSashaBack.nomoredomains.icu/',

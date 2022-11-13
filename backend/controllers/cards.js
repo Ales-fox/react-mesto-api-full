@@ -48,7 +48,7 @@ module.exports.putLike = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавляет _id в массив, если его там нет
     { new: true },
   ).orFail(new NotFoundError(errorMessage.notFoundCard))
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send({ card }))
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new Error400(errorMessage.castError));
@@ -63,7 +63,7 @@ module.exports.deleteLike = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // убирает _id из массива
     { new: true },
   ).orFail(new NotFoundError(errorMessage.notFoundCard))
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send({ card }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));

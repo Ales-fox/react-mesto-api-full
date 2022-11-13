@@ -19,14 +19,14 @@ export default function Card(props) {
     }
 
     // Определяем, являемся ли мы владельцем текущей карточки
-    const isOwn = card.owner._id === currentUser._id;
+    const isOwn = card.owner === currentUser._id;
     // Создаём переменную, ктр регулирует отображение иконки удаления (+ если card создана нами, - если кем-то другим)
     const cardDeleteButtonClassName = (
         `button-delete button ${isOwn ? '' : 'button-delete_inactive'}`
     );
 
     // Определяем, есть ли у карточки лайк, поставленный нами(текущим пользователем)
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     // Создаём переменную, которую после зададим в `className` для кнопки лайка
     const cardLikeButtonClassName = (`button-like button ${isLiked ? 'button-like_active' : ''}`);
 

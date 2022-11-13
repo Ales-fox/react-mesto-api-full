@@ -1,5 +1,7 @@
-const baseURL = 'https://auth.nomoreparties.co';
-//const baseURL = 'http://localhost:3000';
+const baseURL = 'http://localhost:3000';
+// 'https://domainSashaBack.nomoredomains.icu';
+// 'https://auth.nomoreparties.co';
+// const baseURL = 'http://localhost:3000';
 
 export const register = (email, password) => {
     return fetch(`${baseURL}/signup`, {
@@ -19,7 +21,7 @@ export const authorize = (email, password) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ password, email })
-    })
+    })  
         .then(res => getResponseData(res))
         .then((data) => {
             if (data.token) {

@@ -1,12 +1,13 @@
 // Импорт(подключение) модулей
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors'); // ?
 const { celebrate, Joi, errors } = require('celebrate');
 const router = require('./routes/index');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { errorMessage, avatarPatternValidation, allowedCors } = require('./constants');
+const { errorMessage, avatarPatternValidation/* , allowedCors */ } = require('./constants');
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
@@ -22,16 +23,17 @@ app.use(requestLogger); // Логгер запросов. Подключаетс
 // Можно подключить только к 1 конкретному запросу
 app.use(express.json());
 
-// eslint-disable-next-line func-names, prefer-arrow-callback
-app.use(function (req, res, next) {
+app.use(cors()); // ?
+/* app.use((req, res, next) => {
   const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+  console.log(origin);
   // Проверяем, что значение origin есть среди разрешённых доменов
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
   }
-
   next();
-});
+}); */
+
 // Код нужен только для проверки работоспособности pm2, потом можно удалить
 app.get('/crash-test', () => {
   setTimeout(() => {

@@ -40,8 +40,8 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getDataCard()])
         .then(([itemsUserInfo, itemsCard]) => {
-          setCurrentUser(itemsUserInfo);
-          setCards(itemsCard);
+          setCurrentUser(itemsUserInfo.data);
+          setCards(itemsCard.cards);
         }).catch(err => console.log(err));
     }
   }, [loggedIn]);
@@ -122,18 +122,20 @@ function App() {
   //Установка/Удаление лайка
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-
+    const isLiked = card.likes.some(i => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      console.log(newCard);
+      setCards((state) => {
+        state.map((c) => c._id === card._id ? newCard : c)});
     }).catch(e => console.error(e));
   }
 
   //Удаление карточки
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(data => {
-      setCards((state) => state.filter(item => item._id !== card._id));
+      setCards((state) => {
+        state.filter(item => item._id !== card._id)});
     }).catch(e => console.error(e));
   }
 
@@ -180,7 +182,6 @@ function App() {
   const tokenCheck = () => {
 
     if (!localStorage.getItem('jwt')) return;
-
     const jwt = localStorage.getItem('jwt');
     //Проверяем токен пользователя
     authApi.getContent(jwt)
