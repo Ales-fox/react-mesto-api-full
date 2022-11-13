@@ -86,11 +86,15 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'https://nomoreparties.co/v1/cohort-46/',
+    baseURL: 'http://localhost:3000/',
     headers: {
         authorization: '13749ec2-245f-4fcd-8f22-451e84bec66b',
         'Content-Type': 'application/json'
     }
 };
+
+/*baseURL:'https://domainSashaBack.nomoredomains.icu/',
+    'http://localhost:3000/',
+    'https://nomoreparties.co/v1/cohort-46/',*/
 
 export const api = new Api(apiData);

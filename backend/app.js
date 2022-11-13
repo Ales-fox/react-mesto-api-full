@@ -6,7 +6,7 @@ const router = require('./routes/index');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { errorMessage, avatarPatternValidation } = require('./constants');
+const { errorMessage, avatarPatternValidation, allowedCors } = require('./constants');
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
@@ -21,6 +21,23 @@ app.use(requestLogger); // Логгер запросов. Подключаетс
 // Всегда выше запросов где это используется
 // Можно подключить только к 1 конкретному запросу
 app.use(express.json());
+
+// eslint-disable-next-line func-names, prefer-arrow-callback
+app.use(function (req, res, next) {
+  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+  // Проверяем, что значение origin есть среди разрешённых доменов
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
+// Код нужен только для проверки работоспособности pm2, потом можно удалить
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

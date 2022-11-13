@@ -11,7 +11,20 @@ const errorMessage = {
 };
 const SECRET_JWT = 'some-secret-key';
 const avatarPatternValidation = /(https?:\/\/)(w{3}\.)?(((\d{1,3}\.){3}\d{1,3})|((\w-?)+\.[\w-]{1,32}))(:\d{2,5})?((\/.+)+)?\/?#?/;
-// eslint-disable-next-line max-len
-// /(https?:\/\/)(w{3}\.)?(((\d{1,3}\.){3}\d{1,3})|((\w-?)+\.[\w-]{1,32}))(:\d{2,5})?((\/.+)+)?\/?#?/
-// /(https?:\/\/)(w{3}\.)?(((\d{1,3}\.){3}\d{1,3})|((\w-?)+\.(ru|com)))(:\d{2,5})?((\/.+)+)?\/?#?/
-module.exports = { errorMessage, SECRET_JWT, avatarPatternValidation };
+const allowedCors = [
+  'http://domainSasha.nomoredomains.icu',
+  'https://domainSasha.nomoredomains.icu',
+  'http://domainSashaBack.nomoredomains.icu',
+  'https://domainSashaBack.nomoredomains.icu',
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'http://localhost:3001',
+  'https://localhost:3001',
+];
+
+module.exports = {
+  errorMessage,
+  SECRET_JWT,
+  avatarPatternValidation,
+  allowedCors,
+};

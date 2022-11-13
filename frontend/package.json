@@ -40,17 +40,10 @@
   },
   "description": "Использование React\r Использование хуков\r Использование функциональных компонентов\r Структурное оформление представлено в стилистике БЭМ Nested.\r Использование ООП\r Использование директив export и import\r Отправка данных на сервер, получение данных с сервера\r Использование контекста\r Использование роута и защищенного роута\r Реализована возможность регистрации и аутентификации",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ales-fox/react-mesto-auth.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ales-fox/react-mesto-auth/issues"
-  },
-  "homepage": "https://github.com/Ales-fox/react-mesto-auth#readme",
+  "homepage": "/",
   "devDependencies": {
     "nodemon": "^2.0.20"
   }
