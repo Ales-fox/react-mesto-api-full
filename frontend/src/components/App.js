@@ -40,9 +40,9 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getDataCard()])
         .then(([itemsUserInfo, itemsCard]) => {
-          setCurrentUser(itemsUserInfo.data);
-          setCards(itemsCard.cards);
-        }).catch(err => console.log(err));
+          setCurrentUser(itemsUserInfo);
+          setCards(itemsCard);
+        }).catch(err => console.dir(err));
     }
   }, [loggedIn]);
 
@@ -86,7 +86,7 @@ function App() {
         setCurrentUser(data);
         closeAllPopups();
       })
-      .catch(err => console.log(err))
+      .catch(err => console.dir(err))
       .finally(() => {
         renderLoading(false, buttonSubmit);
       });
@@ -100,7 +100,7 @@ function App() {
         setCurrentUser(data);
         closeAllPopups();
       })
-      .catch(err => console.log(err))
+      .catch(err => console.dir(err))
       .finally(() => {
         renderLoading(false, buttonSubmit);
       });
@@ -113,7 +113,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.log(err))
+      .catch(err => console.dir(err))
       .finally(() => {
         renderLoading(false, buttonSubmit);
       });
@@ -122,20 +122,18 @@ function App() {
   //Установка/Удаление лайка
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      console.log(newCard);
-      setCards((state) => {
-        state.map((c) => c._id === card._id ? newCard : c)});
+      setCards((state) => state.map((c) => c._id === card._id ? newCard: c));
     }).catch(e => console.error(e));
   }
 
   //Удаление карточки
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(data => {
-      setCards((state) => {
-        state.filter(item => item._id !== card._id)});
+      setCards((state) => state.filter(item => item._id !== card._id));
     }).catch(e => console.error(e));
   }
 
@@ -188,8 +186,8 @@ function App() {
       .then((res) => {
         if (res) {
           const userData = {
-            id: res.data._id,
-            email: res.data.email
+            id: res._id,
+            email: res.email
           }
           setLoggedIn(true);
           setEmail(userData.email);
@@ -200,7 +198,12 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    console.dir(cards);
+  }, [cards]);
 
   return (
     <div className="page">

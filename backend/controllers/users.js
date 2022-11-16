@@ -14,7 +14,7 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.params.userId).orFail(new NotFoundError(errorMessage.notFoundUser))
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new Error400(errorMessage.castError));
@@ -25,7 +25,12 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.getMyInfo = (req, res, next) => {
   User.findById(req.user._id).orFail(new NotFoundError(errorMessage.notFoundUser))
-    .then((data) => res.send({ data }))
+    .then((data) => res.send({
+      name: data.name,
+      about: data.about,
+      avatar: data.avatar,
+      _id: data._id,
+    }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));

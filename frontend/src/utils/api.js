@@ -9,25 +9,29 @@ class Api {
 
     getUserInfo() {
         return fetch(this._urlDataProfile, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         }).then(res => this._getResponseData(res));
     } //Идентичен с запросом getDataProfile() снизу. Есть ли разница ? если есть то какие коррективы ввести ? 
 
     getDataProfile() {
         return fetch(this._urlDataProfile, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         }).then(res => this._getResponseData(res));
     }
 
     getDataCard() {
         return fetch(this._urlCard, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         }).then(res => this._getResponseData(res));
     }
 
     setUserInfo(obj) { //был sendDataProfile
         return fetch(this._urlDataProfile, {
             method: "PATCH",
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify(obj),
         }).then(res => this._getResponseData(res));
@@ -36,6 +40,7 @@ class Api {
     sendDataAvatar(obj) {
         return fetch(this._urlAvatar, {
             method: "PATCH",
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify(obj),
         }).then(res => this._getResponseData(res));
@@ -45,6 +50,7 @@ class Api {
         return fetch(this._urlCard, {
             method: "POST",
             headers: this._headers,
+            credentials: 'include',            
             body: JSON.stringify(obj),
         }).then(res => this._getResponseData(res));
     }
@@ -52,8 +58,10 @@ class Api {
     //Так же возможен вариант когда при передаче метода одного класса в другой класс
     //Закреплять this методом bind()
     deleteCard = (id) => {
+        console.log(id);
         return fetch(`${this._urlCard}/${id}`, {
             method: "DELETE",
+            credentials: 'include',
             headers: this._headers,
         }).then(res => this._getResponseData(res));
 
@@ -66,6 +74,7 @@ class Api {
     putLikes = (id) => {
         return fetch(`${this._urlCard}/${id}/likes`, {
             method: "PUT",
+            credentials: 'include',
             headers: this._headers
         }).then(res => this._getResponseData(res));
     }
@@ -73,16 +82,18 @@ class Api {
     deleteLikes = (id) => {
         return fetch(`${this._urlCard}/${id}/likes`, {
             method: "DELETE",
+            credentials: 'include',
             headers: this._headers,
         }).then(res => this._getResponseData(res));
     }
 
-    _getResponseData(res) {
+   _getResponseData(res) {
         if (!res.ok) {
             return Promise.reject(`Ошибка: ${res.status}  ${res.statusText}`);
         }
         return res.json();
     }
+
 }
 
 const apiData = {
@@ -94,7 +105,6 @@ const apiData = {
 };
 
 /*baseURL:'https://domainSashaBack.nomoredomains.icu/',
-    'http://localhost:3000/',
-    'https://nomoreparties.co/v1/cohort-46/',*/
+    'http://localhost:3000/',*/
 
 export const api = new Api(apiData);

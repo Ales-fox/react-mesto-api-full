@@ -6,21 +6,25 @@ const { errorMessage } = require('../constants');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ cards }))
+    .populate(['owner', 'likes'])
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
 module.exports.deleteCard = (req, res, next) => {
   // Если функция не находит эл-т с таким id, то метод orFail создает ошибку и кидает в блок catch
-  Card.findById(req.params.cardId).orFail(new NotFoundError(errorMessage.notFoundCard))
+  Card.findById(req.params.cardId)
+    .populate(['owner', 'likes'])
+    .orFail(new NotFoundError(errorMessage.notFoundCard))
     .then((card) => {
-      if (card.owner.toHexString() !== req.user._id) {
+      if (card.owner._id.toHexString() !== req.user._id) {
         throw new ForbiddenError(errorMessage.forbiddenError);
       }
-
       return Card.findByIdAndRemove(req.params.cardId);
     })
-    .then((dataCard) => res.send({ dataCard }))
+    .then((dataCard) => {
+      res.send(dataCard);
+    })
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new Error400(errorMessage.castError));
@@ -31,9 +35,17 @@ module.exports.deleteCard = (req, res, next) => {
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-
-  Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send(card))
+  const card = new Card({ name, link, owner: req.user._id });
+  card.save()
+    .then((doc) => {
+      card.populate(['owner', 'likes'])
+        .then((crd) => {
+          res.status(201).send(crd);
+        });
+    })
+    // 2-й в-т. Хуже двойным обращением в БД
+    /* .then((card) => Card.findById(card._id).populate(['owner', 'likes']))
+    . then((card) => res.send(card)) */
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new Error400(errorMessage.validationError));
@@ -47,8 +59,15 @@ module.exports.putLike = (req, res, next) => {
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // добавляет _id в массив, если его там нет
     { new: true },
-  ).orFail(new NotFoundError(errorMessage.notFoundCard))
-    .then((card) => res.send({ card }))
+  ).populate(['owner', 'likes']).orFail(new NotFoundError(errorMessage.notFoundCard))
+    .then((card) => res.send({
+      likes: card.likes,
+      _id: card._id,
+      name: card.name,
+      link: card.link,
+      owner: card.owner,
+      createdAt: card.createdAt,
+    }))
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new Error400(errorMessage.castError));
@@ -62,8 +81,15 @@ module.exports.deleteLike = (req, res, next) => {
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // убирает _id из массива
     { new: true },
-  ).orFail(new NotFoundError(errorMessage.notFoundCard))
-    .then((card) => res.send({ card }))
+  ).populate(['owner', 'likes']).orFail(new NotFoundError(errorMessage.notFoundCard))
+    .then((card) => res.send({
+      likes: card.likes,
+      _id: card._id,
+      name: card.name,
+      link: card.link,
+      owner: card.owner,
+      createdAt: card.createdAt,
+    }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));
