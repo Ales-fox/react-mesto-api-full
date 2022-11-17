@@ -35,12 +35,22 @@ module.exports.deleteCard = (req, res, next) => {
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const card = new Card({ name, link, owner: req.user._id });
-  card.save()
-    .then((doc) => {
+  const doc = new Card({ name, link, owner: req.user._id });
+  doc.save()
+    .then((card) => {
       card.populate(['owner', 'likes'])
-        .then((crd) => {
-          res.status(201).send(crd);
+        .then(({
+          // eslint-disable-next-line no-shadow
+          name,
+          // eslint-disable-next-line no-shadow
+          link,
+          owner,
+          likes,
+          createdAt,
+          _id,
+        }) => {
+          // eslint-disable-next-line object-curly-newline
+          res.status(201).send({ name, link, owner, likes, createdAt, _id });
         });
     })
     // 2-й в-т. Хуже двойным обращением в БД

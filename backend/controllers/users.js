@@ -110,8 +110,17 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       // аутентификация успешна
       const token = jwt.sign({ _id: user._id }, SECRET_JWT, { expiresIn: '7d' }); // в течение 7 дней токен будет действителен
-
+      // eslint-disable-next-line object-curly-newline
+      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
       res.status(200).send({ token });
     })
     .catch((err) => next(err));
+};
+
+module.exports.logOut = (req, res, next) => {
+  try {
+    res.clearCookie('jwt').status(200).send({ message: 'Куки удалены' });
+  } catch (err) {
+    next(err);
+  }
 };

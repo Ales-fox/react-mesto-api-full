@@ -99,7 +99,7 @@ class Api {
 const apiData = {
     baseURL: 'http://localhost:3000/',
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
+       // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,
     } 
 };

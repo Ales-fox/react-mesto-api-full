@@ -63,8 +63,13 @@ function App() {
 
   //Выход из системы
   const handleLogOutClick = () => {
-    localStorage.removeItem('jwt'); //Удаления токена из хранилища
-    history.push('/sign-in'); //Переадресация 
+    // localStorage.removeItem('jwt'); //Удаления токена из хранилища
+    authApi.logOut()
+    .then((data) => {
+      history.push('/sign-in'); //Переадресация
+      console.log('Вышли');
+    })
+    .catch((err) => console.dir(err)); 
   }
 
   const closeAllPopups = () => {
@@ -150,7 +155,7 @@ function App() {
     return authApi.authorize(email, password)
       .then((data) => {
         if (!data?.token) { return Promise.reject('No data') };
-        localStorage.setItem('jwt', data.token);
+        /*localStorage.setItem('jwt', data.token);*/
         setEmail(email);
         setLoggedIn(true);
         history.push('/');
@@ -179,8 +184,9 @@ function App() {
 
   const tokenCheck = () => {
 
-    if (!localStorage.getItem('jwt')) return;
-    const jwt = localStorage.getItem('jwt');
+    /*if (!localStorage.getItem('jwt')) return;
+    const jwt = localStorage.getItem('jwt');*/
+    const jwt = 2;
     //Проверяем токен пользователя
     authApi.getContent(jwt)
       .then((res) => {

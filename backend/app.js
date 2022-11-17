@@ -1,10 +1,11 @@
 // Импорт(подключение) модулей
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser'); // Для чтения кук
 // const cors = require('cors'); // ?
 const { celebrate, Joi, errors } = require('celebrate');
 const router = require('./routes/index');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, logOut } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { errorMessage, avatarPatternValidation, allowedCors } = require('./constants');
@@ -15,7 +16,7 @@ const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process
 mongoose.connect(MONGO_URL);
 // Создание приложения
 const app = express();
-
+app.use(cookieParser());
 app.use(requestLogger); // Логгер запросов. Подключается до всех обработчиков роутов
 
 // Подключаем возможность обработки json объектов запросами
@@ -71,7 +72,7 @@ app.post('/signup', celebrate({
 
 // авторизация
 app.use(auth);
-
+app.post('/logout', logOut); // Выход из системы
 app.use(router);
 
 app.use('*', (req, res, next) => { // Ошибка на неизвестные роуты
