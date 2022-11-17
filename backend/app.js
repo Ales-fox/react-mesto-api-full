@@ -1,8 +1,8 @@
 // Импорт(подключение) модулей
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser'); // Для чтения кук
-// const cors = require('cors'); // ?
 const { celebrate, Joi, errors } = require('celebrate');
 const router = require('./routes/index');
 const { login, createUser, logOut } = require('./controllers/users');
@@ -24,7 +24,6 @@ app.use(requestLogger); // Логгер запросов. Подключаетс
 // Можно подключить только к 1 конкретному запросу
 app.use(express.json());
 
-// app.use(cors()); // ?
 app.use((req, res, next) => {
   const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
   const { method } = req; // Сохраняем тип запроса

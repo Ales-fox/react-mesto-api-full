@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken'); // Модуль для создания токенов
 const bcrypt = require('bcryptjs'); // Модуль для хеширования пароля
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 const { errorMessage, SECRET_JWT } = require('../constants');
 const NotFoundError = require('../errors/NotFoundError');
@@ -105,11 +107,11 @@ module.exports.correctAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log(process.env);
   User.findUserByCredentials(email, password)
     .then((user) => {
       // аутентификация успешна
-      const token = jwt.sign({ _id: user._id }, SECRET_JWT, { expiresIn: '7d' }); // в течение 7 дней токен будет действителен
+      const token = jwt.sign({ _id: user._id }, (NODE_ENV === 'production' ? JWT_SECRET : SECRET_JWT), { expiresIn: '7d' }); // в течение 7 дней токен будет действителен
       // eslint-disable-next-line object-curly-newline
       res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
       res.status(200).send({ token });
