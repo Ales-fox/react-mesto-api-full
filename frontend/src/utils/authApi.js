@@ -1,4 +1,4 @@
-const baseURL = 'https://domainSashaBack.nomoredomains.icu/api';
+const baseURL = 'https://domainSashaBack.nomoredomains.icu/api/';
 // 'https://domainSashaBack.nomoredomains.icu';
 // const baseURL = 'http://localhost:3000';
 
