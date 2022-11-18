@@ -14,8 +14,10 @@ const avatarPatternValidation = /(https?:\/\/)(w{3}\.)?(((\d{1,3}\.){3}\d{1,3})|
 const allowedCors = [
   'http://domainSashaBack.nomoredomains.icu',
   'http://domainsashaback.nomoredomains.icu',
+  'http://domainsashaback.nomoredomains.icu/',
   'https://domainSashaBack.nomoredomains.icu',
   'https://domainsashaback.nomoredomains.icu',
+  'https://domainsashaback.nomoredomains.icu/',
   'http://localhost:3001',
   'https://localhost:3001',
 ];
