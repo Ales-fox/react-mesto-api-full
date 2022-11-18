@@ -1,9 +1,9 @@
 class Api {
     constructor({ baseURL, headers }) {
         this._baseURL = baseURL;
-        this._urlDataProfile = `${this._baseURL}users/me`;
-        this._urlCard = `${this._baseURL}cards`;
-        this._urlAvatar = `${this._baseURL}users/me/avatar`;
+        this._urlDataProfile = `${this._baseURL}/users/me`;
+        this._urlCard = `${this._baseURL}/cards`;
+        this._urlAvatar = `${this._baseURL}/users/me/avatar`;
         this._headers = headers;
     }
 
@@ -97,7 +97,7 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'https://domainsashaback.nomoredomains.icu/api/',
+    baseURL: 'https://domainsashaback.nomoredomains.icu/api',
     headers: {
        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,
