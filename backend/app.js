@@ -46,20 +46,20 @@ app.use((req, res, next) => {
 });
 
 // Код нужен только для проверки работоспособности pm2, потом можно удалить
-app.get('/crash-test', () => {
+app.get('/api/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
 
-app.post('/signin', celebrate({
+app.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }).unknown(true),
 }), login);
 
-app.post('/signup', celebrate({
+app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -71,7 +71,7 @@ app.post('/signup', celebrate({
 
 // авторизация
 app.use(auth);
-app.post('/logout', logOut); // Выход из системы
+app.post('/api/logout', logOut); // Выход из системы
 app.use(router);
 
 app.use('*', (req, res, next) => { // Ошибка на неизвестные роуты
