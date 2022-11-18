@@ -28,7 +28,7 @@ class Api {
         }).then(res => this._getResponseData(res));
     }
 
-    setUserInfo(obj) { //был sendDataProfile
+    setUserInfo(obj) {
         return fetch(this._urlDataProfile, {
             method: "PATCH",
             credentials: 'include',
