@@ -97,7 +97,7 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://domainSashaBack.nomoredomains.icu/',
     headers: {
        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,

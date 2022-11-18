@@ -107,7 +107,7 @@ module.exports.correctAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  console.log(process.env);
+
   User.findUserByCredentials(email, password)
     .then((user) => {
       // аутентификация успешна

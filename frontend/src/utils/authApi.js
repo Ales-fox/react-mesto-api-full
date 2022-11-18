@@ -1,6 +1,5 @@
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://domainSashaBack.nomoredomains.icu/';
 // 'https://domainSashaBack.nomoredomains.icu';
-// 'https://auth.nomoreparties.co';
 // const baseURL = 'http://localhost:3000';
 
 export const register = (email, password) => {
