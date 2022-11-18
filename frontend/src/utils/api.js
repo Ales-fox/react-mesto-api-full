@@ -97,14 +97,13 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'https://domainSashaBack.nomoredomains.icu/api/',
+    baseURL: 'https://domainsashaback.nomoredomains.icu/api/',
     headers: {
        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,
     } 
 };
 
-/*baseURL:'https://domainSashaBack.nomoredomains.icu/',
-    'http://localhost:3000/',*/
+/*baseURL: 'http://localhost:3000/',*/
 
 export const api = new Api(apiData);
