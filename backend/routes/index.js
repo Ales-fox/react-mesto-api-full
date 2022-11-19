@@ -6,14 +6,14 @@ const { avatarPatternValidation } = require('../constants');
 const userRouter = require('./users');
 const cardRouter = require('./cards');
 
-router.post('/signin', celebrate({
+router.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }).unknown(true),
 }), login);
 
-router.post('/signup', celebrate({
+router.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -24,8 +24,8 @@ router.post('/signup', celebrate({
 }), createUser);
 
 router.use(auth); // авторизация, выше всех роутов где нужна авторизация
-router.post('/logout', logOut); // Выход из системы
-router.use('/users', userRouter);
-router.use('/cards', cardRouter);
+router.post('/api/logout', logOut); // Выход из системы
+router.use('/api/users', userRouter);
+router.use('/api/cards', cardRouter);
 
 module.exports = router;
