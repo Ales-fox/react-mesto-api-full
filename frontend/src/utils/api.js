@@ -1,4 +1,3 @@
-const { NODE_ENV } = process.env;
 class Api {
     constructor({ baseURL, headers }) {
         this._baseURL = baseURL;
@@ -97,7 +96,7 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://domainsashaback.nomoredomains.icu/api',
     headers: {
        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,

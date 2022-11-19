@@ -1,7 +1,4 @@
-const baseURL = 'http://localhost:3000';
-
-/*const { NODE_ENV } = process.env;
-const baseURL = NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://domainsashaback.nomoredomains.icu/api'; */
+const baseURL = 'https://domainsashaback.nomoredomains.icu/api';
 // const baseURL = 'http://localhost:3000' https://domainsashaback.nomoredomains.icu/api;
 
 export const register = (email, password) => {
