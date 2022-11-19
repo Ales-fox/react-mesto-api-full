@@ -23,5 +23,5 @@
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
 IP: 84.201.158.6
-Frontend:
-Backend:
+Frontend: https://domainsashaback.nomoredomains.icu/
+Backend: https://domainsashaback.nomoredomains.icu/api
