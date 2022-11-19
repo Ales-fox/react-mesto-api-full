@@ -1,14 +1,12 @@
 // Импорт(подключение) модулей
-require('dotenv').config();
+require('dotenv').config(); // Для переменной окружения
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser'); // Для чтения кук
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const router = require('./routes/index');
-const { login, createUser, logOut } = require('./controllers/users');
-const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { errorMessage, avatarPatternValidation, allowedCors } = require('./constants');
+const { errorMessage, allowedCors } = require('./constants');
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
@@ -52,28 +50,7 @@ app.get('/api/crash-test', () => {
   }, 0);
 });
 
-app.post('/api/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }).unknown(true),
-}), login);
-
-app.post('/api/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(avatarPatternValidation),
-  }).unknown(true),
-}), createUser);
-
-// авторизация
-app.use(auth);
-app.post('/api/logout', logOut); // Выход из системы
 app.use(router);
-
 app.use('*', (req, res, next) => { // Ошибка на неизвестные роуты
   next(new NotFoundError(errorMessage.resourseExistError));
 });

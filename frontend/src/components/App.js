@@ -186,9 +186,9 @@ function App() {
 
     /*if (!localStorage.getItem('jwt')) return;
     const jwt = localStorage.getItem('jwt');*/
-    const jwt = 2;
+    
     //Проверяем токен пользователя
-    authApi.getContent(jwt)
+    authApi.getContent()
       .then((res) => {
         if (res) {
           const userData = {
@@ -206,10 +206,6 @@ function App() {
     tokenCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  React.useEffect(() => {
-    console.dir(cards);
-  }, [cards]);
 
   return (
     <div className="page">

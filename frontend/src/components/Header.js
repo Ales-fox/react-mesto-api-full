@@ -4,7 +4,6 @@ import logo from '../images/header__logo.svg';
 
 function Header(props) {
     const { linkName, link, email, onClick } = props;
-
     return (
         <header className="header">
             <img className="header__logo " src={logo} alt="Лого" />

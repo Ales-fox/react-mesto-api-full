@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'); // Модуль для создания токенов
 const bcrypt = require('bcryptjs'); // Модуль для хеширования пароля
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV = 'development', JWT_SECRET } = process.env;
 const User = require('../models/user');
 const { errorMessage, SECRET_JWT } = require('../constants');
 const NotFoundError = require('../errors/NotFoundError');
@@ -27,12 +27,7 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.getMyInfo = (req, res, next) => {
   User.findById(req.user._id).orFail(new NotFoundError(errorMessage.notFoundUser))
-    .then((data) => res.send({
-      name: data.name,
-      about: data.about,
-      avatar: data.avatar,
-      _id: data._id,
-    }))
+    .then((data) => res.send(data))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new Error400(errorMessage.castError));

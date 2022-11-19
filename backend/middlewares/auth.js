@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Error401 = require('../errors/Error401');
 const { errorMessage, SECRET_JWT } = require('../constants');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV = 'development', JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
   // Вариант для использования локал сторэдж

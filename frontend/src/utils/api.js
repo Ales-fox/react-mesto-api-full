@@ -1,3 +1,4 @@
+const { NODE_ENV } = process.env;
 class Api {
     constructor({ baseURL, headers }) {
         this._baseURL = baseURL;
@@ -58,7 +59,6 @@ class Api {
     //Так же возможен вариант когда при передаче метода одного класса в другой класс
     //Закреплять this методом bind()
     deleteCard = (id) => {
-        console.log(id);
         return fetch(`${this._urlCard}/${id}`, {
             method: "DELETE",
             credentials: 'include',
@@ -97,13 +97,14 @@ class Api {
 }
 
 const apiData = {
-    baseURL: 'https://domainsashaback.nomoredomains.icu/api',
+    baseURL: 'http://localhost:3000',
     headers: {
        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,    
         "Content-Type": "application/json" ,
     } 
 };
 
-/*baseURL: 'http://localhost:3000/',*/
+/*baseURL: 'http://localhost:3000/',
+https://domainsashaback.nomoredomains.icu/api*/
 
 export const api = new Api(apiData);

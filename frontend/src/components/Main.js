@@ -5,7 +5,7 @@ import Card from './Card.js';
 function Main(props) {
     const { onEditAvatar, onEditProfile, onAddPlace, onCardClick, onImageClick, cards, onCardLike, onCardDelete } = props;
     const currentUser = React.useContext(CurrentUserContext); // Подписываемся на контекст
-    console.log(cards);
+    
     return (
         <main>
             <section className="profile">
