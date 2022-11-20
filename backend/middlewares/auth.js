@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Error401 = require('../errors/Error401');
-const { errorMessage, SECRET_JWT } = require('../constants');
-
-const { NODE_ENV = 'development', JWT_SECRET } = process.env;
+require('dotenv').config();// Модуль для работы с переменной окружения process.env
+const { errorMessage, SECRET_JWT_DEV } = require('../constants');
 
 const auth = (req, res, next) => {
   // Вариант для использования локал сторэдж
@@ -16,9 +15,10 @@ const auth = (req, res, next) => {
   }
   const token = req.cookies.jwt;
   let payload;
+  const { NODE_ENV = 'development', JWT_SECRET = 'Key-secret' } = process.env;
 
   try {
-    payload = jwt.verify(token, (NODE_ENV === 'production' ? JWT_SECRET : SECRET_JWT));
+    payload = jwt.verify(token, (NODE_ENV === 'production' ? JWT_SECRET : SECRET_JWT_DEV));
   } catch (err) {
     return next(new Error401(errorMessage.errorAuth));
   }

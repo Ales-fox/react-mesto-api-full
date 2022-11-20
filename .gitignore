@@ -33,3 +33,5 @@ node_modules
 .vscode
 
 text
+
+test_jwt.js

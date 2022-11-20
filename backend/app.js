@@ -1,5 +1,4 @@
 // Импорт(подключение) модулей
-require('dotenv').config(); // Для переменной окружения
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser'); // Для чтения кук

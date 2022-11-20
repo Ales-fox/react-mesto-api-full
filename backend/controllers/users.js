@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken'); // Модуль для создания токенов
 const bcrypt = require('bcryptjs'); // Модуль для хеширования пароля
+require('dotenv').config();// Модуль для работы с переменной окружения process.env
 
-const { NODE_ENV = 'development', JWT_SECRET } = process.env;
 const User = require('../models/user');
-const { errorMessage, SECRET_JWT } = require('../constants');
+const { errorMessage, SECRET_JWT_DEV } = require('../constants');
 const NotFoundError = require('../errors/NotFoundError');
 const Error400 = require('../errors/Error400');
 const EmailExistError = require('../errors/EmailExistError');
@@ -106,7 +106,8 @@ module.exports.login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       // аутентификация успешна
-      const token = jwt.sign({ _id: user._id }, (NODE_ENV === 'production' ? JWT_SECRET : SECRET_JWT), { expiresIn: '7d' }); // в течение 7 дней токен будет действителен
+      const { NODE_ENV = 'development', JWT_SECRET = 'Key-secret' } = process.env;
+      const token = jwt.sign({ _id: user._id }, (NODE_ENV === 'production' ? JWT_SECRET : SECRET_JWT_DEV), { expiresIn: '7d' }); // в течение 7 дней токен будет действителен
       // eslint-disable-next-line object-curly-newline
       res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
       res.status(200).send({ token });
