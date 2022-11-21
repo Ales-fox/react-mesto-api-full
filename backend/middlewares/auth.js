@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const Error401 = require('../errors/Error401');
-require('dotenv').config();// Модуль для работы с переменной окружения process.env
 const { errorMessage, SECRET_JWT_DEV } = require('../constants');
 
 const auth = (req, res, next) => {

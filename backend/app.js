@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser'); // Для чтения кук
 const { errors } = require('celebrate');
+require('dotenv').config();// Модуль для работы с переменной окружения process.env
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { errorMessage, allowedCors } = require('./constants');

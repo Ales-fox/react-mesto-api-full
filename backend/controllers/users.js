@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken'); // Модуль для создания токенов
 const bcrypt = require('bcryptjs'); // Модуль для хеширования пароля
-require('dotenv').config();// Модуль для работы с переменной окружения process.env
 
 const User = require('../models/user');
 const { errorMessage, SECRET_JWT_DEV } = require('../constants');
